@@ -82,7 +82,7 @@ function MapView() {
       position.length > 0 && 
       <MapContainer
           center={position}
-          zoom={12}
+          zoom={13}
           scrollWheelZoom={true}
           style={{ width: "100vw", height: "100vh", willChange: "auto" }}
         >
