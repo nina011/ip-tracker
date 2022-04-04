@@ -35,11 +35,12 @@ function MapView() {
   //         setPolygon(polygon)
   //     }
   // }, [map])
-
+   
+  
   const url = "https://api64.ipify.org?format=json";
 
-  const [lat, setLat] = useState(0);
-  const [lng, setLng] = useState(0);
+  
+  const [position, setPosition ] = useState([])
 
   const getIp = async () => {
       
@@ -50,7 +51,8 @@ function MapView() {
   };
 
   const getInfo = async () => {
-  
+    
+    console.log('getInfo')
     const ip =  await getIp()
 
     let data = await fetch(
@@ -60,8 +62,9 @@ function MapView() {
      let info = await data.json();
      console.log(info)
 
-      setLat(info.location.lat);
-      setLng(info.location.lng);
+      setPosition([info.location.lat, info.location.lng])
+      
+   
   };
 
   useEffect(() =>{
@@ -70,16 +73,16 @@ function MapView() {
  
   },[])
 
-  
+
 
 
   return (
     <>
       {
-      lat && lng && 
+      position.length > 0 && 
       <MapContainer
-          center={[lat, lng]}
-          zoom={11}
+          center={position}
+          zoom={12}
           scrollWheelZoom={true}
           style={{ width: "100vw", height: "100vh", willChange: "auto" }}
         >
@@ -87,7 +90,7 @@ function MapView() {
           url={`https://api.mapbox.com/styles/v1/${process.env.REACT_APP_MAP_USERNAME}/${process.env.REACT_APP_MAP_STYLE}/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAP_TOKEN}`}
           attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
         />
-        <Marker position={[lat, lng]} icon={pointerIcon}></Marker>
+        <Marker position={position} icon={pointerIcon}></Marker>
       </MapContainer>
       }
 
