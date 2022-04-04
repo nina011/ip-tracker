@@ -51,17 +51,17 @@ function MapView() {
 
   const getInfo = async () => {
   
-   const ip =  await getIp()
+    const ip =  await getIp()
 
-   let data = await fetch(
+    let data = await fetch(
       `https://geo.ipify.org/api/v2/country,city,vpn?apiKey=${process.env.REACT_APP_APIKEY}&ipAddress=${ip}`
     );
   
      let info = await data.json();
      console.log(info)
 
-    setLat(info.location.lat);
-    setLng(info.location.lng);
+      setLat(info.location.lat);
+      setLng(info.location.lng);
   };
 
   useEffect(() =>{
@@ -87,7 +87,7 @@ function MapView() {
           url={`https://api.mapbox.com/styles/v1/${process.env.REACT_APP_MAP_USERNAME}/${process.env.REACT_APP_MAP_STYLE}/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAP_TOKEN}`}
           attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
         />
-        <Marker position={[-32.83369, -70.59827]} icon={pointerIcon}></Marker>
+        <Marker position={[lat, lng]} icon={pointerIcon}></Marker>
       </MapContainer>
       }
 
