@@ -84,7 +84,7 @@ export const ContainertWrapper = styled.div`
     border-radius: 0.8rem;
     
     @media (max-width: 1035px) {
-        width: 45vw;
+        width: 50vw;
         height: auto;
         padding: 1rem 0;
         /* margin-bottom: 3.3rem; */

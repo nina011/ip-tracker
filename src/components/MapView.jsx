@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { MapContainer, TileLayer, Polygon, Marker, Popup } from "react-leaflet";
 import Leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { HiLocationMarker } from "react-icons/hi";
 // import { getInfo } from "../networking/API";
 import ApiContext from "../context/ApiContext";
-
 
 export const pointerIcon = new Leaflet.Icon({
   iconUrl: require(".././location-pin.png"),
@@ -19,20 +18,15 @@ export const pointerIcon = new Leaflet.Icon({
 });
 
 function MapView() {
+  const { position, data } = useContext(ApiContext);
+  const [map, setMap] = useState(null);
 
-  const { position } = useContext(ApiContext);
-  // const [position, setPosition] = useState([]);
-
-  // const callApi = () => {
-  //   getInfo().then((res) => {
-  //     setPosition([res.location.lat, res.location.lng]);
-  //   });
-  // };
-  // useEffect(() => {
-    
-  //   callApi();
-  
-  // }, []);
+  // actualizar el mapa
+  useEffect(() => {
+    if (map) {
+      map.flyTo(position, 10);
+    }
+  }, [position]);
 
   if (position.length === 0) {
     return <div>Loading....</div>;
@@ -42,9 +36,12 @@ function MapView() {
     <>
       {position.length > 0 && (
         <MapContainer
+          // ref={mapRef}
           center={position}
           zoom={13}
           scrollWheelZoom={true}
+          // whenCreated={(map) => setMap(map)}
+          whenCreated={setMap}
           style={{ width: "100vw", height: "100vh", willChange: "auto" }}
         >
           <TileLayer
