@@ -1,28 +1,37 @@
-import React from 'react'
-import { ContentWrapper, DataText } from './Header.styled'
-
+import React, { useContext } from 'react'
+import { ContainertWrapper, 
+         ContainerInfo, 
+         DataText,
+         TitleData
+         } from './Header.styled'
+import ApiContext from "../../context/ApiContext";
 
 
 const ContainerData = () => {
+
+    const { data } = useContext(ApiContext);
+
   return (
-    <ContentWrapper>
+    <ContainertWrapper>
+        <ContainerInfo>
         <div>
-            <h4>IP Address</h4>
-            <DataText>data</DataText>
+            <TitleData>IP ADRESS</TitleData>
+            <DataText>{data.ip ? data.ip : '-'}</DataText>
         </div>
         <div>
-            <h4>Location</h4>
-            <DataText>data</DataText>
+            <TitleData>LOCATION</TitleData>
+            <DataText>{data.country ? (data.city+', '+data.country) : '-'}</DataText>
         </div>
         <div>
-            <h4>Timezone</h4>
-            <DataText>data</DataText>
+            <TitleData>TIMEZONE</TitleData>
+            <DataText>{ data.timezone ? 'UTC' + data.timezone : '-'}</DataText>
         </div>
         <div>
-            <h4>ISP</h4>
-            <DataText>data</DataText>
+            <TitleData>ISP</TitleData>
+            <DataText>{data.isp ? data.isp : '-'}</DataText>
         </div>
-    </ContentWrapper>
+        </ContainerInfo>
+    </ContainertWrapper>
   )
 }
 

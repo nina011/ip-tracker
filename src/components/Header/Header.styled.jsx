@@ -10,6 +10,9 @@ export const HeaderContainer = styled.header`
     position: relative;
     z-index: 500;
    
+    @media (max-width: 1035px) {
+        height: 60vh;
+    }
     `
 
 export const Title = styled.h1`
@@ -32,14 +35,19 @@ export const InputContainer = styled.div`
 `
 
 export const InputIP = styled.input`
-    width: 100%;
+    width: 91%;
     height: 3rem;
+    margin: 0 auto;
     border: none;
     border-radius: 0.8rem;
     padding-left: 1rem;
     font-size: 18px;
     color: #000;
     outline: none;
+
+    @media (max-width: 1035px) {
+       width: 85%;
+    }
 `
 
 export const Button = styled.button`
@@ -51,26 +59,76 @@ export const Button = styled.button`
     border-bottom-right-radius: 0.8rem;
     
     top:0;
-    right: -18px;
+    right: 28px;
     height: 100%;
     width: 3rem;
+
+    @media (max-width: 1035px) {
+        right: 15px
+    }
+    @media (max-width: 720px) {
+        right: 0px
+    }
     `
 
-export const ContentWrapper = styled.div`
+export const ContainertWrapper = styled.div`
     width: 80vw;
-    height: 200px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color :hsl(0, 0%, 59%);
+    margin: 0 auto;
+    margin-top: 3.3rem;
+    background-color: #fff;
+    border-radius: 0.8rem;
+    
+    @media (max-width: 1035px) {
+        width: 45vw;
+        height: auto;
+        padding: 1rem 0;
+        /* margin-bottom: 3.3rem; */
+    }
+   
+    `
+
+export const ContainerInfo = styled.div`
     display: flex;
     flex-direction: wrap;
     justify-content: space-evenly;
-    color :hsl(0, 0%, 59%);
-    margin: 0 auto;
-    margin-top: 3rem;
-    background-color: #fff;
-    border-radius: 0.8rem;
-    `
+    
+    & > div {
+        width: 33%;
+        border-right: 1px solid hsl(0, 0%, 59%);
+        padding: 0 2rem;
+        text-align: center;
+       }
+    & > div:last-child {
+        border-right: none;
+    }
+
+    @media (max-width: 1035px) {
+        flex-direction: column;
+        & > div {
+            width: 100%;
+            border-right: none;
+            /* border-bottom: 1px solid hsl(0, 0%, 59%); */
+            padding: 1rem 0;
+        }
+        & > div:last-child {
+            border-bottom: none;
+        }
+    }
+
+`
 
 export const DataText = styled.span`
     color: hsl(0, 0%, 17%);
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 500;
+    `
+
+export const TitleData = styled.h5`
+    margin-top:0;
+
     `

@@ -13,7 +13,11 @@ const Input = () => {
     <InputContainer>
         <InputIP 
             type="text" 
-            placeholder="Search for any IP adress" />
+            placeholder="Search for any IP adress" 
+            onChange={(e) => {
+              console.log(e.target.value)
+            }}
+            />
         <Button
             type='submit'>
             <img src={icon} alt="icon" />

@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { MapContainer, TileLayer, Polygon, Marker, Popup } from "react-leaflet";
 import Leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { HiLocationMarker } from "react-icons/hi";
-import { getInfo } from "../networking/API";
+// import { getInfo } from "../networking/API";
+import ApiContext from "../context/ApiContext";
+
 
 export const pointerIcon = new Leaflet.Icon({
   iconUrl: require(".././location-pin.png"),
@@ -17,18 +19,20 @@ export const pointerIcon = new Leaflet.Icon({
 });
 
 function MapView() {
-  const [position, setPosition] = useState([]);
 
-  const callApi = () => {
-    getInfo().then((res) => {
-      setPosition([res.location.lat, res.location.lng]);
-    });
-  };
-  useEffect(() => {
+  const { position } = useContext(ApiContext);
+  // const [position, setPosition] = useState([]);
+
+  // const callApi = () => {
+  //   getInfo().then((res) => {
+  //     setPosition([res.location.lat, res.location.lng]);
+  //   });
+  // };
+  // useEffect(() => {
     
-    callApi();
+  //   callApi();
   
-  }, []);
+  // }, []);
 
   if (position.length === 0) {
     return <div>Loading....</div>;
