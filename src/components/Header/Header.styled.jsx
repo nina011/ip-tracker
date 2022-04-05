@@ -50,7 +50,7 @@ export const Button = styled.button`
     border-top-right-radius: 0.8rem;
     border-bottom-right-radius: 0.8rem;
     
-   
+    top:0;
     right: -18px;
     height: 100%;
     width: 3rem;

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Polygon, Marker, Popup } from "react-leaflet";
 import Leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { HiLocationMarker } from "react-icons/hi";
-import { useEffect } from "react";
+import { getInfo } from "../networking/API";
 
 export const pointerIcon = new Leaflet.Icon({
   iconUrl: require(".././location-pin.png"),
@@ -15,67 +15,41 @@ export const pointerIcon = new Leaflet.Icon({
   shadowSize: [0, 0],
   shadowAnchor: [20, 92],
 });
+
 function MapView() {
-    
-  
-  const url = "https://api64.ipify.org?format=json";
+  const [position, setPosition] = useState([]);
 
-  
-  const [position, setPosition ] = useState([])
-
-  const getIp = async () => {
-      
-    let data = await fetch(url);
-    let ip = await data.json();
-    
-    return ip.ip
+  const callApi = () => {
+    getInfo().then((res) => {
+      setPosition([res.location.lat, res.location.lng]);
+    });
   };
-
-  const getInfo = async () => {
+  useEffect(() => {
     
-    console.log('getInfo')
-    const ip =  await getIp()
-
-    let data = await fetch(
-      `https://geo.ipify.org/api/v2/country,city,vpn?apiKey=${process.env.REACT_APP_APIKEY}&ipAddress=${ip}`
-    );
+    callApi();
   
-     let info = await data.json();
-     console.log(info)
+  }, []);
 
-      setPosition([info.location.lat, info.location.lng])
-      
-   
-  };
-
-  useEffect(() =>{
-   
-    getInfo()
- 
-  },[])
-
-
-  if(position.length === 0){ return <div>Loading....</div>}
-
+  if (position.length === 0) {
+    return <div>Loading....</div>;
+  }
 
   return (
     <>
-      {
-      position.length > 0 && 
-      <MapContainer
+      {position.length > 0 && (
+        <MapContainer
           center={position}
           zoom={13}
           scrollWheelZoom={true}
           style={{ width: "100vw", height: "100vh", willChange: "auto" }}
         >
-        <TileLayer
-          url={`https://api.mapbox.com/styles/v1/${process.env.REACT_APP_MAP_USERNAME}/${process.env.REACT_APP_MAP_STYLE}/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAP_TOKEN}`}
-          attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
-        />
-        <Marker position={position} icon={pointerIcon}></Marker>
-      </MapContainer>
-      }
-
+          <TileLayer
+            url={`https://api.mapbox.com/styles/v1/${process.env.REACT_APP_MAP_USERNAME}/${process.env.REACT_APP_MAP_STYLE}/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAP_TOKEN}`}
+            attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
+          />
+          <Marker position={position} icon={pointerIcon}></Marker>
+        </MapContainer>
+      )}
     </>
   );
 }
