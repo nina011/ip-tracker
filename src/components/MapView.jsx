@@ -16,26 +16,7 @@ export const pointerIcon = new Leaflet.Icon({
   shadowAnchor: [20, 92],
 });
 function MapView() {
-  // const [map, setMap] = useState(null)
-  // const [polygon, setPolygon] = useState(null)
-
-  // useEffect(() => {
-
-  //     if (map) {
-  //         const polygon = polygon([
-  //             [51.505, -0.09],
-  //             [51.505, -0.01],
-  //             [51.51, -0.01],
-  //             [51.51, -0.09]
-  //         ], {
-  //             color: 'red',
-  //             fillColor: '#f03',
-  //             fillOpacity: 0.5
-  //         }).addTo(map)
-  //         setPolygon(polygon)
-  //     }
-  // }, [map])
-   
+    
   
   const url = "https://api64.ipify.org?format=json";
 
@@ -74,6 +55,7 @@ function MapView() {
   },[])
 
 
+  if(position.length === 0){ return <div>Loading....</div>}
 
 
   return (
