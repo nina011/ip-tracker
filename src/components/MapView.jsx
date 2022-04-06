@@ -2,18 +2,17 @@ import React, { useEffect, useContext, useState } from "react";
 import { MapContainer, TileLayer, Polygon, Marker, Popup } from "react-leaflet";
 import Leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { HiLocationMarker } from "react-icons/hi";
-// import { getInfo } from "../networking/API";
+import Spinner from "../shared/Spinner";
 import ApiContext from "../context/ApiContext";
 
 export const pointerIcon = new Leaflet.Icon({
-  iconUrl: require(".././location-pin.png"),
-  iconRetinaUrl: require(".././location-pin.png"),
+  iconUrl: require("../assets/location-pin.png"),
+  iconRetinaUrl: require("../assets/location-pin.png"),
   iconAnchor: [5, 55],
   popupAnchor: [10, -44],
   iconSize: [40, 40],
   shadowUrl: "../assets/marker-shadow.png",
-  shadowSize: [0, 0],
+  shadowSize: [5, 5],
   shadowAnchor: [20, 92],
 });
 
@@ -29,7 +28,7 @@ function MapView() {
   }, [position]);
 
   if (position.length === 0) {
-    return <div>Loading....</div>;
+    return <Spinner />;
   }
 
   return (

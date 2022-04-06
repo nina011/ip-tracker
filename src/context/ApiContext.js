@@ -39,7 +39,7 @@ export const ApiProvider = ({ children }) => {
     let data = await fetch(
       `https://geo.ipify.org/api/v2/country,city,vpn?apiKey=${process.env.REACT_APP_APIKEY}&ipAddress=${newIp?newIp:ip}`
     );
-    console.log(newIp)
+  
     let info = await data.json();
 
     setData({

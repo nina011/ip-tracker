@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { InputContainer, InputIP, Button } from "./Header.styled";
-import icon from "../../icon-arrow.svg";
+import icon from "../../assets/icon-arrow.svg";
 import ApiContext  from '../../context/ApiContext';
 
 
@@ -20,6 +20,7 @@ const Input = () => {
     let validarIp = textIp.split(".");
     if (validarIp.length !== 4) {
       alert("Ingrese una dirección ip valida");
+      return null;
     } else {
       for (let i in validarIp) {
         if (
@@ -29,11 +30,10 @@ const Input = () => {
           /^[0][0-9]{1,2}/.test(validarIp[i])
         ) {
           alert("Ingrese una dirección ip valida");
-          return;
+          return null;
         }
       }
     }
-    alert("Dirección ip valida");
     addNewIp(textIp);
   };
 

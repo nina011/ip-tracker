@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
     // background image from src
-    background-image: url(${require('../../pattern-bg.png')});
+    background-image: url(${require('../../assets/pattern-bg.png')});
     background-size: cover;
     height: 36vh;
     position: relative;
